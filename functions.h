@@ -9,4 +9,7 @@ typedef struct HEADER_TAG {
     long magic_number;              /* 0x0123456789ABCDEFL */
 } HEADER;
 
+void *malloc_3is(size_t size);
+void free_3is(void *ptr);
+
 #endif /* functions_h */
