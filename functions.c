@@ -7,7 +7,7 @@ HEADER* headOfHeap = NULL;
 /// @return Void pointer to the allocated space, or NULL if there is insufficient memory available.
 void *malloc_3is(size_t size)
 {
-    void* returnValue = NULL;
+    HEADER* returnValue = NULL;
     
     if (0 == size)
     {
@@ -21,6 +21,9 @@ void *malloc_3is(size_t size)
     currentStateOfHeap->ptr_next = NULL;
     currentStateOfHeap->bloc_size = size;
     currentStateOfHeap->magic_number = MAGIC_NUMBER;
+
+    long* adressOfTail = (void*) (currentStateOfHeap) + size + sizeof(HEADER);
+    *adressOfTail = MAGIC_NUMBER;
 
     returnValue = currentStateOfHeap + 1;
     return returnValue;
@@ -84,11 +87,7 @@ void free_3is(void *ptr)
 
     previousElement->ptr_next = currentElement->ptr_next;*/
 
-    // Check if the Magic number has been modified.
-
-    // 
-
-    HEADER* nodeToFree = ptr - sizeof(HEADER);
+    HEADER* nodeToFree = ptr - 1;
     nodeToFree->ptr_next = NULL;
     /*nodeToFree->bloc_size = ptr - sizeof(MAGIC_NUMBER);
     nodeToFree->magic_number = MAGIC_NUMBER;*/
@@ -105,4 +104,17 @@ void free_3is(void *ptr)
 
     nodeToFree->ptr_next = headOfHeap;
     headOfHeap = nodeToFree;
+}
+
+bool checkIfAdressCorrupted(void* ptr)
+{
+    HEADER* nodeToCheck = (HEADER*) (ptr) - 1;
+    // Check the magic number in the header
+    bool firstCheck = (MAGIC_NUMBER == nodeToCheck->magic_number);
+    // Check the magic number at the tail of the structure.
+    long* adressOfTail = (long*) (ptr + nodeToCheck->bloc_size);
+    printf("Content: %lX\n", *adressOfTail);
+    bool secondCheck = (MAGIC_NUMBER == *adressOfTail);
+
+    return firstCheck && secondCheck;
 }

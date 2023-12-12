@@ -19,7 +19,9 @@ int main()
     // Difference : 0x24 = 36.
     // Logical, size of int : 4, size of magic number : 8, size of HEADER : 24
 
+    printf("%d\n", checkIfAdressCorrupted(intValue));
     free_3is(intValue);
+    printf("%d\n", checkIfAdressCorrupted(floatValue));
     free_3is(floatValue);
 
     assert(NULL != headOfHeap);
