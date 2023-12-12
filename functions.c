@@ -84,5 +84,25 @@ void free_3is(void *ptr)
 
     previousElement->ptr_next = currentElement->ptr_next;*/
 
-    return ;
+    // Check if the Magic number has been modified.
+
+    // 
+
+    HEADER* nodeToFree = ptr - sizeof(HEADER);
+    nodeToFree->ptr_next = NULL;
+    /*nodeToFree->bloc_size = ptr - sizeof(MAGIC_NUMBER);
+    nodeToFree->magic_number = MAGIC_NUMBER;*/
+    /*HEADER* currentElement = headOfHeap;
+    HEADER* previousElement = NULL;
+
+    while (NULL != currentElement)
+    {
+        previousElement = currentElement;
+        currentElement = currentElement->ptr_next;
+    }
+
+    previousElement->ptr_next = nodeToFree;*/
+
+    nodeToFree->ptr_next = headOfHeap;
+    headOfHeap = nodeToFree;
 }

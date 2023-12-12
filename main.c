@@ -1,5 +1,7 @@
 #include "./main.h"
 
+extern HEADER* headOfHeap;
+
 int main()
 {
     printf("Work is not done for the moment.\n");
@@ -17,7 +19,12 @@ int main()
     // Difference : 0x24 = 36.
     // Logical, size of int : 4, size of magic number : 8, size of HEADER : 24
 
-    printf("%ld", sizeof(HEADER));
+    free_3is(intValue);
+    free_3is(floatValue);
+
+    assert(NULL != headOfHeap);
+    assert(NULL != headOfHeap->ptr_next);
+    assert(NULL == headOfHeap->ptr_next->ptr_next);
 
     return EXIT_SUCCESS;
 }
