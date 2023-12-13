@@ -19,7 +19,7 @@ void *malloc_3is(size_t size)
 
     while(NULL != currentElement)
     {
-        // If the size is big enough, use the given block.
+        // If the size is the same size as a element that has been free, use the given block.
         if (currentElement->bloc_size == size)
         {
             if (headOfHeap == currentElement)
@@ -34,6 +34,11 @@ void *malloc_3is(size_t size)
             returnValue = currentElement;
             
             break;
+        }
+        // If the bloc can be split in two for this one and another one for the futur, do it
+        if (currentElement->bloc_size > (size + sizeof(HEADER) + 1 + sizeof(MAGIC_NUMBER)))
+        {
+            
         }
         previousElement = currentElement;
         currentElement = currentElement->ptr_next;
