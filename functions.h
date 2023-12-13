@@ -18,6 +18,6 @@ typedef struct HEADER_TAG {
 
 void *malloc_3is(size_t size);
 void free_3is(void *ptr);
-bool checkIfAdressCorrupted(void* ptr);
+bool checkIfAdressCorrect(void* ptr);
 
 #endif /* functions_h */
