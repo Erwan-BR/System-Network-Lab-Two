@@ -60,7 +60,7 @@ void *malloc_3is(size_t size)
 void free_3is(void *ptr)
 {
     // Add the new free block at head of the heap.
-    HEADER* nodeToFree = ptr - 1;
+    HEADER* nodeToFree = ((HEADER*)ptr) - 1;
     nodeToFree->ptr_next = headOfHeap;
     headOfHeap = nodeToFree;
 }
