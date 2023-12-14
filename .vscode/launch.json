@@ -5,7 +5,7 @@
     "name": "Compile and Debug C",
     "type": "cppdbg",
     "request": "launch",
-    "program": "${workspaceFolder}/main",
+    "program": "${workspaceFolder}/build/Labs_System",
     "args": [],
     "stopAtEntry": false,
     "cwd": "${workspaceFolder}",
@@ -28,7 +28,7 @@
     "label": "C/C++: gcc build all file",
     "type": "shell",
     "command": "gcc",
-    "args": ["-g", "main.c", "functions.c", "-o", "main"],
+    "args": ["-g", "main.c", "functions.c", "-o", "./build/Labs_System_Debug"],
     "group": {
         "kind": "build",
         "isDefault": true

@@ -51,13 +51,13 @@ void *malloc_3is(size_t size)
             //Put the new bloc in the Linked List and remove the returned one
             if (headOfHeap == currentElement)
             {
-                headOfHeap = newBlock;
                 newBlock->ptr_next = headOfHeap->ptr_next;
+                headOfHeap = newBlock;
             }
             else
             {
-                previousElement->ptr_next = newBlock;
                 newBlock->ptr_next = currentElement->ptr_next;
+                previousElement->ptr_next = newBlock;
             }
             
             //Update Returned block header

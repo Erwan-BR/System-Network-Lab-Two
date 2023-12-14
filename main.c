@@ -12,14 +12,12 @@ int main()
     int* intValue = malloc_3is(sizeof(int));
     *intValue = 7;
 
-    
-
-    printf("Both value are: %d, %f\n", *intValue, *floatValue);
+    printf("The values are: %d, %f\n", *intValue, *floatValue);
 
     printf("Adresses: %p, %p\n", intValue, floatValue);
 
     // Difference : 0x24 = 36.
-    // Logical, size of int : 4, size of magic number : 8, size of HEADER : 24
+    // Logical, size of int : 4, size of magic number : 8, size of HEADER : 24, size of long = 8, size of char = 1
 
     printf("Is float adress correct? %d\n", checkIfAdressCorrect(floatValue));
     free_3is(floatValue);
@@ -38,6 +36,21 @@ int main()
     printf("Old int (re-used) and new int: %d, %d\n", *intValue, *intValue2);
     printf("Is second int adress correct?%d\n", checkIfAdressCorrect(intValue2));
     free_3is(intValue2);
+
+    printf("------------------------------\n");
+
+    //Allocation for a List (64 o) -> Creation of a new bloc
+    int* intList = malloc_3is(16*sizeof(int));
+    for(int i=0;i<16;i++){intList[i] = i;}
+
+    printf("Is int list adress correct? %d\n", checkIfAdressCorrect(intList));
+    free_3is(intList);
+
+    //Allocation for long (8 o) -> Split the 64o bloc in two (8o & 24o)
+    long* longValue = malloc_3is(sizeof(long));
+
+    printf("Is long Value adress correct? %d\n", checkIfAdressCorrect(intList));
+    free_3is(longValue);
 
     return EXIT_SUCCESS;
 }
