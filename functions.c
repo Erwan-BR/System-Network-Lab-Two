@@ -38,8 +38,36 @@ void *malloc_3is(size_t size)
         // If the bloc can be split in two for this one and another one for the futur, do it
         if (currentElement->bloc_size > (size + sizeof(HEADER) + 1 + sizeof(MAGIC_NUMBER)))
         {
+            // Create a new block for the remaining free space
+            HEADER *newBlock = (HEADER*)((void*)currentElement + size + sizeof(HEADER) + sizeof(MAGIC_NUMBER));
+            newBlock->bloc_size = currentElement->bloc_size - (size + sizeof(HEADER) + sizeof(MAGIC_NUMBER));
+            newBlock->magic_number = MAGIC_NUMBER;
+
+            //Write a new magic number to end the turned block early
+            //The new block will keep the previous magic number
+            long* adressOfMagicNumber = (void*) (currentElement) + size + sizeof(HEADER);
+            *adressOfMagicNumber = MAGIC_NUMBER;
+
+            //Put the new bloc in the Linked List and remove the returned one
+            if (headOfHeap == currentElement)
+            {
+                headOfHeap = newBlock;
+                newBlock->ptr_next = headOfHeap->ptr_next;
+            }
+            else
+            {
+                previousElement->ptr_next = newBlock;
+                newBlock->ptr_next = currentElement->ptr_next;
+            }
             
+            //Update Returned block header
+            currentElement->bloc_size = size;
+            currentElement->ptr_next = NULL;
+            returnValue = currentElement;
+
+            break;
         }
+
         previousElement = currentElement;
         currentElement = currentElement->ptr_next;
     }
