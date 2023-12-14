@@ -19,5 +19,6 @@ typedef struct HEADER_TAG {
 void *malloc_3is(size_t size);
 void free_3is(void *ptr);
 bool checkIfAdressCorrect(void* ptr);
+void linkBlocks(HEADER* ptr1, HEADER* ptr2);
 
 #endif /* functions_h */

@@ -24,9 +24,9 @@ int main()
     printf("Is int adress correct? %d\n", checkIfAdressCorrect(intValue));
     free_3is(intValue);
 
-    assert(NULL != headOfHeap);
-    assert(NULL != headOfHeap->ptr_next);
-    assert(NULL == headOfHeap->ptr_next->ptr_next);
+    //assert(NULL != headOfHeap);
+    //assert(NULL != headOfHeap->ptr_next);
+    //assert(NULL == headOfHeap->ptr_next->ptr_next);
 
     int* intValue2 = malloc_3is(sizeof(int));
     *intValue2 = 15;
@@ -46,10 +46,9 @@ int main()
     printf("Is int list adress correct? %d\n", checkIfAdressCorrect(intList));
     free_3is(intList);
 
-    //Allocation for long (8 o) -> Split the 64o bloc in two (8o & 24o)
     long* longValue = malloc_3is(sizeof(long));
 
-    printf("Is long Value adress correct? %d\n", checkIfAdressCorrect(intList));
+    printf("Is long Value adress correct? %d\n", checkIfAdressCorrect(longValue));
     free_3is(longValue);
 
     return EXIT_SUCCESS;

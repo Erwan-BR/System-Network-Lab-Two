@@ -92,11 +92,47 @@ void *malloc_3is(size_t size)
 /// @param ptr Pointer to de-allocate.
 void free_3is(void *ptr)
 {
-    // Add the new free block at head of the heap.
-    HEADER* nodeToFree = ((HEADER*)ptr) - 1;
-    nodeToFree->ptr_next = headOfHeap;
-    headOfHeap = nodeToFree;
+    HEADER* blockToFree = ((HEADER*)ptr) - 1;
+
+    // If the list is empty or the block to free should be inserted at the beginning
+    if (headOfHeap == NULL || blockToFree < headOfHeap)
+    {
+        blockToFree->ptr_next = headOfHeap;
+        headOfHeap = blockToFree;
+    }
+    else
+    {
+        HEADER* current = headOfHeap;
+        HEADER* previous = NULL;
+
+        // Traverse the list to find the correct position to insert the block
+        while (current != NULL && current < blockToFree)
+        {
+            previous = current;
+            current = current->ptr_next;
+        }
+
+        //Check if the previous block is adjacent to the freed one to fuse them
+        linkBlocks(blockToFree,current);
+        linkBlocks(previous,blockToFree);
+    }
 }
+
+/// @brief Try to fuse the two block, else link them in the linked list
+/// @param ptr1 First Block ie (ptr1 < ptr2)
+/// @param ptr2 Second Block
+void linkBlocks(HEADER* ptr1, HEADER* ptr2){
+    //Check if the blocks are adjacents to fuse them
+    if((void*) ptr1+ptr1->bloc_size+sizeof(HEADER)+sizeof(MAGIC_NUMBER) == ptr2){
+        ptr1->bloc_size = ptr1->bloc_size + +sizeof(HEADER)+sizeof(MAGIC_NUMBER) +ptr2->bloc_size;
+        ptr1->ptr_next = ptr2->ptr_next;
+    }
+    //Else, just link them in the List
+    else{
+        ptr1->ptr_next = ptr2;
+    }
+}
+
 
 /// @brief Check if an adress as not been corrupted.
 /// @param ptr Pointer to the element to check.
