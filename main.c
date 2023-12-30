@@ -24,22 +24,17 @@ int main()
     printf("Is int adress correct? %d\n", checkIfAdressCorrect(intValue));
     free_3is(intValue);
 
-    //assert(NULL != headOfHeap);
-    //assert(NULL != headOfHeap->ptr_next);
-    //assert(NULL == headOfHeap->ptr_next->ptr_next);
-
     int* intValue2 = malloc_3is(sizeof(int));
     *intValue2 = 15;
 
     printf("Is head non-null? %d\n", (NULL != headOfHeap));
     printf("Is after head null? %d\n", (NULL == headOfHeap->ptr_next));
-    printf("Old int (re-used) and new int: %d, %d\n", *intValue, *intValue2);
-    printf("Is second int adress correct?%d\n", checkIfAdressCorrect(intValue2));
+    printf("Is second int adress correct? %d\n", checkIfAdressCorrect(intValue2));
     free_3is(intValue2);
 
     printf("------------------------------\n");
 
-    //Allocation for a List (64 o) -> Creation of a new bloc
+    // Allocation for a List (64 o) -> Creation of a new bloc
     int* intList = malloc_3is(16*sizeof(int));
     for(int i=0;i<16;i++){intList[i] = i;}
 
